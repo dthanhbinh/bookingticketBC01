@@ -1,30 +1,33 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-export default class Home extends Component {
-  state = {
-    arrFilms: [],
-  };
+import { connect } from "react-redux";
+import { LayDanhSachPhimAction } from "../../redux/action/PhimAction";
+class Home extends Component {
+  // state = {
+  //   arrFilms: [],
+  // };
   loadFilm = () => {
-    //Dùng axios gọi lấy thông tin từ backend
-    const promise = axios({
-      url:
-        "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01",
-      method: "GET",
-    });
-    //Xử lý thành công
-    promise.then((result) => {
-      console.log(result.data);
-      this.setState({
-        arrFilms: result.data,
-      });
-    });
-    promise.catch((error) => {
-      console.log(error.response.data);
-    });
+    this.props.dispatch(LayDanhSachPhimAction());
+    // Dùng axios gọi lấy thông tin từ backend
+    // const promise = axios({
+    //   url:
+    //     "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01",
+    //   method: "GET",
+    // });
+    // //Xử lý thành công
+    // promise.then((result) => {
+    //   console.log(result.data);
+    //   this.props.dispatch({
+    //     type: "LAY_DANH_SACH_PHIM",
+    //     mangPhim: result.data,
+    //   });
+    // });
+    // promise.catch((error) => {
+    //   console.log(error.response.data);
+    // });
   };
   renderFilms = () => {
-    return this.state.arrFilms.map((film, index) => {
+    return this.props.mangPhim.map((film, index) => {
       return (
         <div className="col-4" key={index}>
           <div className="card text-left">
@@ -54,8 +57,14 @@ export default class Home extends Component {
     );
   }
   //Hàm giống hàm render của react component kế thừa nên có
-  componentDidMount() {
-    //Các API muốn gọi sau khi giao diện render thì sẽ gọi tròng hàm này
-    this.loadFilm();
-  }
+  // componentDidMount() {
+  //   //Các API muốn gọi sau khi giao diện render thì sẽ gọi tròng hàm này
+  //   this.loadFilm();
+  // }
 }
+const mapStateToProps = (state) => {
+  return {
+    mangPhim: state.PhimReducer.mangPhim,
+  };
+};
+export default connect(mapStateToProps)(Home);
