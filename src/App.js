@@ -13,18 +13,25 @@ import BaiTapChonXe from "./pages/Hook/BaiTapChonXe";
 import UseEffectHome from "./pages/Hook/UseEffectHome";
 import ReduxHookHome from "./pages/Hook/ReduxHookHome";
 import Details from "./pages/Details/Details";
+import HookUseCallBack from "./pages/Hook/HookUseCallBack";
+import HookMemo from "./pages/Hook/HookUseMemo";
+import UseRef from "./pages/Hook/UseRef";
+import ParentComponent from "./pages/HOC/ParentComponent";
+import { HomeTemplate } from "./templates/HomeTemplate";
+import { AdminTemplate } from "./templates/AdminTemplate";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        {/* <Header /> */}
         <Loading />
         <Switch>
+          {/* <HomeTemplate exact path="/home" component={Home} /> */}
           {/**exact tìm đúng tên đường dẫn */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/login" component={Login} />
+          <HomeTemplate exact path="/home" Component={Home} />
+          <HomeTemplate exact path="/contact" Component={Contact} />
+          <AdminTemplate exact path="/login" Component={Login} />
           <Route exact path="/register" component={Register} />
           <Route
             exact
@@ -45,6 +52,10 @@ function App() {
           <Route exact path="/useeffecthome" component={UseEffectHome} />
           <Route exact path="/ReduxHookHome" component={ReduxHookHome} />
           <Route exact path="/Details/:id" component={Details} />
+          <Route exact path="/usecallback" component={HookUseCallBack} />
+          <Route exact path="/usememo" component={HookMemo} />
+          <Route exact path="/useref" component={UseRef} />
+          <Route exact path="/demoprops" component={ParentComponent} />
           {/**Root mặc định để dưới cuối cùng của ứng dụng */}
           <Route exact path="/" component={Home} />
         </Switch>
